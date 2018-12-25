@@ -25,12 +25,15 @@ function  myHttp(url){
     return promise;
 }
 async function download() {
-    for(var i =1 ;i<=521;i++){
-        novelUrl = 'https://www.seego.co/novel/woheaojiaokongjiedehuangdaoshenghuo/read_'+i+'.html';
+    for(var i =1 ;i<=1;i++){
+        novelUrl = 'https://www.seego.co/novel/woheaojiaokongjiedehuangdaoshenghuo/read_'+3+'.html';
         let html =await myHttp(novelUrl);
         let $ = cheerio.load(html);
-        let chapter =  $('html').find('content');
-        console.log(chapter);
+        let chapter =  $('h1').text();
+        let content =  $('#chaptercontent').text();
+        
+        console.log();
+
     }
 }
 download();
