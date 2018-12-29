@@ -1,32 +1,38 @@
-const cheerio = require('cheerio'); 
 //Node.js 版的jQuery
-const async = require('async'); 
+var http = require("https");
+
+// const async = require('async'); 
  
+const iconv = require('iconv-lite');
 const fs = require('fs');
 //fs操作IO
 const url = require('url');
+const cheerio = require('cheerio'); 
 
-var http = require("https");
 var txt = null;
-fs.open('F:/1.txt', 'a+', (err,fd)=>{
-    if(!err){
-        txt =fd;
-    }else{
-        console.log('open file err'+err)
-    }
-})
-
-var  novelUrl = '';
+// fs.open('F:/1.txt', 'a+', (err,fd)=>{
+//     if(!err){
+//         txt =fd;
+//     }else{
+//         console.log('open file err'+err)
+//     }
+// })
+var charset ='gbk';
+var  novelUrl = 'https://www.ddbiquge.cc/';
 function  myHttp(url){
     let promise=new Promise(function (resolve, reject) {
         let req=http.get(url)
          req.on("response",function (res) {
-             let finalData='';
-             res.on("data",function (data) {
-                 finalData+=data;
+             let data=[];
+             let length=0;
+             res.on("data",function (chunk) {
+                data.push(chunk);
+                length += chunk.length;
              });
-             res.on('end', function(date){
-                 resolve(finalData.toString())
+             res.on('end', function(msg){
+                 data = Buffer.concat(data,length);
+                 data = iconv.decode(data,charset);
+                 resolve(data.toString())
              })
          });
     })
@@ -47,6 +53,26 @@ async function download() {
 
     }
 }
-download();
+// download();
 //调用
+var curChapter = '';
+async function check (){
+    let  html = await myHttp(novelUrl);
+    let $ = cheerio.load(html);
+    let node = $("#info");//p:contains('最新章节')
+    if(curChapter != node.text()){
+        // curChapter =node.text();
+        let href = node.attr("p");
+          console.log(href);
+
+    }
+
+    console.log(curChapter);
+}
+
+    check();
+
+// setInterval(() => {
+//     check();
+// }, 1000);
 

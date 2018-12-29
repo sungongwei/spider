@@ -9,6 +9,10 @@
   "author": "sgw",
   "license": "ISC",
   "dependencies": {
+    "async": "^2.6.1",
+    "cheerio": "^1.0.0-rc.2",
+    "encoding": "^0.1.12",
+    "iconv-lite": "^0.4.24",
     "nodemailer": "^4.7.0"
   }
 }
