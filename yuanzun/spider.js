@@ -62,7 +62,7 @@ async function check (){
     let node = $("#info");//p:contains('最新章节')
     if(curChapter != node.text()){
         // curChapter =node.text();
-        let href = node.attr("p");
+        let href = $("#info p a").eq(2).attr("href");
           console.log(href);
 
     }
