@@ -1,6 +1,6 @@
 //Node.js 版的jQuery
 var http = require("https");
-
+var email =require('./email');
 // const async = require('async'); 
  
 const iconv = require('iconv-lite');
@@ -57,17 +57,26 @@ async function download() {
 //调用
 var curChapter = '';
 async function check (){
-    let  html = await myHttp(novelUrl);
-    let $ = cheerio.load(html);
-    let node = $("#info");//p:contains('最新章节')
+    var  html = await myHttp(novelUrl);
+    var $ = cheerio.load(html);
+    var node = $("#info p").last();//p:contains('最新章节')
     if(curChapter != node.text()){
-        // curChapter =node.text();
-        let href = node.attr("p");
-          console.log(href);
+        curChapter =node.text();
+        var href = node.children().attr('href').substr(1);
+                // console.log(href);
 
+        html =await myHttp( novelUrl+href);
+        $ = cheerio.load(html);
+        console.log($.text())
+        var data ={
+            'subject':$('.content h1').text(),
+            'content':$('.showtxt').text(),
+        }
+
+        email.send(data);
     }
 
-    console.log(curChapter);
+    // console.log(curChapter);
 }
 
     check();
