@@ -1,19 +1,20 @@
 const nodemailer = require('nodemailer');
 var transporter = nodemailer.createTransport({
-    server: 'smtp.qq.com',
-    auth: {
+    'host': 'smtp.qq.com',
+    'port':465,
+    'auth': {
         user: 'sgw3344@qq.com',
         pass: 'siqmfhgghmxnbjej'
     }
 });
  exports.send =function (data){
     let mailOptions = {
-        from:'sgw3344@qq.com',
-        to:'18363997625@163.com',
-        subject:data.subject, // Subject line
+        'from':'sgw3344@qq.com',
+        'to':'18363997625@163.com',
+        'subject':data.subject, // Subject line
         // 发送text或者html格式
         // text: 'Hello world?', // plain text body
-        html: '<b>'+data.content+'</b>' // html body
+        'html': '<b>'+data.content+'</b>' // html body
       };
       
       // send mail with defined transport object

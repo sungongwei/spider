@@ -61,27 +61,25 @@ async function check (){
     var $ = cheerio.load(html);
     var node = $("#info p").last();//p:contains('最新章节')
     if(curChapter != node.text()){
+
+        console.log('get new chapter');
+        
         curChapter =node.text();
         var href = node.children().attr('href').substr(1);
-                // console.log(href);
-
         html =await myHttp( novelUrl+href);
         $ = cheerio.load(html);
-        console.log($.text())
         var data ={
             'subject':$('.content h1').text(),
             'content':$('.showtxt').text(),
         }
-
+        console.log('send email');
         email.send(data);
     }
-
-    // console.log(curChapter);
 }
 
     check();
 
 // setInterval(() => {
 //     check();
-// }, 1000);
+// }, 10*60*1000);
 
