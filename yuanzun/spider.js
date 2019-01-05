@@ -1,13 +1,11 @@
 //Node.js 版的jQuery
-var http = require("https");
-var email =require('./email');
-// const async = require('async'); 
- 
-const iconv = require('iconv-lite');
-const fs = require('fs');
-//fs操作IO
-const url = require('url');
-const cheerio = require('cheerio'); 
+const http     = require("https");
+const email    = require('./email');
+const schedule = require('node-schedule');
+const iconv    = require('iconv-lite');
+const fs       = require('fs');
+const url      = require('url');
+const cheerio  = require('cheerio');
 
 var txt = null;
 // fs.open('F:/1.txt', 'a+', (err,fd)=>{
@@ -77,9 +75,9 @@ async function check (){
     }
 }
 
-    check();
+    // check();
 
-// setInterval(() => {
-//     check();
-// }, 10*60*1000);
+schedule.scheduleJob('* */10 12-2 * * *',()=>{
+    check();
+});
 
