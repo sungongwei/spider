@@ -77,7 +77,7 @@ async function check (){
 
     // check();
 
-schedule.scheduleJob('* */10 12-2 * * *',()=>{
+schedule.scheduleJob('0 */10 0-2,12-23 * * *',()=>{
     check();
 });
 

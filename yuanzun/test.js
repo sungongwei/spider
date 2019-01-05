@@ -5,6 +5,6 @@ var data = {
     'content': 'i am groot',
 }
 // email.send(data);
-schedule.scheduleJob('*/3 2-10 15-16 * * *',()=>{
+schedule.scheduleJob('0 */1 0-2,15-16 * * *',()=>{
     console.log('ha ha ha ha '+Date.now());
 });
