@@ -16,7 +16,7 @@ var txt = null;
 //     }
 // })
 var charset ='gbk';
-var  novelUrl = 'https://www.ddbiquge.cc/';
+var  novelUrl = 'https://www.farpop.com/';
 function  myHttp(url){
     let promise=new Promise(function (resolve, reject) {
         let req=http.get(url)
@@ -63,12 +63,12 @@ async function check (){
         console.log('get new chapter');
         
         curChapter =node.text();
-        var href = node.children().attr('href').substr(1);
-        html =await myHttp( novelUrl+href);
+        var href = node.children().attr('href');
+        html =await myHttp(href);
         $ = cheerio.load(html);
         var data ={
-            'subject':$('.content h1').text(),
-            'content':$('.showtxt').text(),
+            'subject':$('.bookname h1').text(),
+            'content':$('#content').text(),
         }
         console.log('send email');
         email.send(data);
